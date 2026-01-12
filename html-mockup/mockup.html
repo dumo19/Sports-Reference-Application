@@ -1,0 +1,280 @@
+<!--
+  Solution to the Engineering Internship Prompt
+
+  Author: Aidan DuMond
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Table Mockup</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px;
+      font-family: Helvetica, Arial, sans-serif;
+      color: #333;
+      background-color: #f9fafb; 
+    }
+
+    #table {
+      display: grid;
+      grid-template-columns: 80px repeat(8, 1fr);
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .table-header {
+      background: #f3f4f6;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: center;
+      padding: 10px 6px;
+      border-bottom: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    }
+
+    .table-body {
+      font-size: 14px;
+      text-align: center;
+      padding: 10px 6px;
+      border-bottom: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    }
+
+    .table-body:hover {
+      background: #e0f2ff;
+    }
+
+    #table > div:nth-child(9n) {
+      border-right: none;
+    }
+
+    #table > div:nth-last-child(-n + 9) {
+      border-bottom: none;
+    }
+  </style>
+
+
+
+</head>
+<body>
+  <div id="table"></div>
+
+  <script type="module">
+    const data = {
+
+      "BRO": {
+
+        "BSN": { "W": 10, "L": 12 },
+
+        "CHC": { "W": 15, "L": 7 },
+
+        "CIN": { "W": 15, "L": 7 },
+
+        "NYG": { "W": 14, "L": 8 },
+
+        "PHI": { "W": 14, "L": 8 },
+
+        "PIT": { "W": 15, "L": 7 },
+
+        "STL": { "W": 11, "L": 11 }
+
+      },
+
+      "BSN": {
+
+        "BRO": { "W": 12, "L": 10 },
+
+        "CHC": { "W": 13, "L": 9 },
+
+        "CIN": { "W": 13, "L": 9 },
+
+        "NYG": { "W": 13, "L": 9 },
+
+        "PHI": { "W": 14, "L": 8 },
+
+        "PIT": { "W": 12, "L": 10 },
+
+        "STL": { "W": 9, "L": 13 }
+
+      },
+
+      "CHC": {
+
+        "BRO": { "W": 7, "L": 15 },
+
+        "BSN": { "W": 9, "L": 13 },
+
+        "CIN": { "W": 12, "L": 10 },
+
+        "NYG": { "W": 7, "L": 15 },
+
+        "PHI": { "W": 16, "L": 6 },
+
+        "PIT": { "W": 8, "L": 14 },
+
+        "STL": { "W": 10, "L": 12 }
+
+      },
+
+      "CIN": {
+
+        "BRO": { "W": 7, "L": 15 },
+
+        "BSN": { "W": 9, "L": 13 },
+
+        "CHC": { "W": 10, "L": 12 },
+
+        "NYG": { "W": 13, "L": 9 },
+
+        "PHI": { "W": 13, "L": 9 },
+
+        "PIT": { "W": 13, "L": 9 },
+
+        "STL": { "W": 8, "L": 14 }
+
+      },
+
+      "NYG": {
+
+        "BRO": { "W": 8, "L": 14 },
+
+        "BSN": { "W": 9, "L": 13 },
+
+        "CHC": { "W": 15, "L": 7 },
+
+        "CIN": { "W": 9, "L": 13 },
+
+        "PHI": { "W": 12, "L": 10 },
+
+        "PIT": { "W": 15, "L": 7 },
+
+        "STL": { "W": 13, "L": 9 }
+
+      },
+
+      "PHI": {
+
+        "BRO": { "W": 8, "L": 14 },
+
+        "BSN": { "W": 8, "L": 14 },
+
+        "CHC": { "W": 6, "L": 16 },
+
+        "CIN": { "W": 9, "L": 13 },
+
+        "NYG": { "W": 10, "L": 12 },
+
+        "PIT": { "W": 13, "L": 9 },
+
+        "STL": { "W": 8, "L": 14 }
+
+      },
+
+      "PIT": {
+
+        "BRO": { "W": 7, "L": 15 },
+
+        "BSN": { "W": 10, "L": 12 },
+
+        "CHC": { "W": 14, "L": 8 },
+
+        "CIN": { "W": 9, "L": 13 },
+
+        "NYG": { "W": 7, "L": 15 },
+
+        "PHI": { "W": 9, "L": 13 },
+
+        "STL": { "W": 6, "L": 16 }
+
+      },
+
+      "STL": {
+
+        "BRO": { "W": 11, "L": 11 },
+
+        "BSN": { "W": 13, "L": 9 },
+
+        "CHC": { "W": 12, "L": 10 },
+
+        "CIN": { "W": 14, "L": 8 },
+
+        "NYG": { "W": 9, "L": 13 },
+
+        "PHI": { "W": 14, "L": 8 },
+
+        "PIT": { "W": 16, "L": 6 }
+
+      }
+
+    }
+    
+    const TABLE = document.getElementById("table")
+
+    /**
+     * Dynamically renders win-loss table
+     */
+    async function loadTable() {
+      // get array of teams
+      const TEAMS = Object.keys(data);
+
+      // build header array
+      let header = ["Tm"]
+      TEAMS.forEach(team => {
+        header.push(String(team))    
+      })
+
+      // Build heading for the table
+      header.forEach(heading => {
+        createDiv(heading, "table-header") 
+      })
+
+      // iterate through all the teams
+      for (let i = 0; i < TEAMS.length; i++) {
+        const team = TEAMS[i]
+        createDiv(team, "table-header") 
+
+
+        // iterate through the possible opponents and find the # of wins if applicable
+        for (let j = 0 ; j < TEAMS.length; j++) {
+          const opp = TEAMS[j] 
+
+          let entryText;
+
+          
+          // If team == opp, then skip as they cannot play each other. This is represented as "--" in the table
+          // Otherwise, get the number of wins that team has against opp
+          team == opp ? entryText = "--" : entryText = data[team][opp]["W"]
+
+          createDiv(entryText, "table-body") 
+        }
+
+      }
+
+      // Build footer for the table
+      header.forEach(heading => {
+        createDiv(heading, "table-header") 
+      })
+    }
+    
+    /**
+     * helper function to add a cell to the table
+     * @param text - innertext of the div
+     * @param className - div class name
+     */
+    function createDiv(text, className) {
+      const d = document.createElement("div")
+      d.classList.add(className)
+      d.textContent = text
+      TABLE.appendChild(d)
+    }
+
+    loadTable()
+
+  </script>
+</body>
+</html>
