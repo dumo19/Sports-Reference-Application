@@ -63,6 +63,8 @@ Inside the inner loop, I used a ternary operatio to handle two cases:
 - If a team is compared against itself, `--` is displayed
 - Otherwise, the number of wins the team has against the opponent is pulled from the data
 
+Because the algorithm uses a nested loop over the list of teams, it runs in `O(n²)` time, where `n` is the number of teams. This is appropriate here since the problem inherently requires comparing every team against every other team to build the full matrix.
+
 I also padded the win values to ensure that the table is properly aligned in the terminal.
 
 ```js
@@ -99,7 +101,7 @@ The `<body>` contains only two elements:
 
 ```html
 <body>
-  <div id="table></div>
+  <div id="table"></div>
   <script type="module">
     ...
   </script>
