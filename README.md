@@ -59,7 +59,7 @@ for (let i = 0; i < TEAMS.length; i++) {
 }
 ```
 
-Inside the inner loop, I used a ternary operatio to handle two cases:
+Inside the inner loop, I used a ternary operator to handle two cases:
 - If a team is compared against itself, `--` is displayed
 - Otherwise, the number of wins the team has against the opponent is pulled from the data
 
